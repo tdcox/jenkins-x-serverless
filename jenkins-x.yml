@@ -111,6 +111,15 @@ pipelineConfig:
           - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
             command: /kaniko/executor
             args:
+              - --dockerfile=Dockerfile.machine-learning
+              - --destination=gcr.io/jenkinsxio/jenkins-machine-learning:${inputs.params.version}
+              - --context=/workspace/source
+              - --cache-repo=gcr.io/jenkinsxio/cache
+              - --cache=true
+              - --cache-dir=/workspace
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
               - --dockerfile=Dockerfile.maven
               - --destination=gcr.io/jenkinsxio/jenkins-maven:${inputs.params.version}
               - --context=/workspace/source
@@ -271,6 +280,15 @@ pipelineConfig:
             args:
               - --dockerfile=Dockerfile.jenkins
               - --destination=gcr.io/jenkinsxio/jenkins-jenkins:${inputs.params.version}
+              - --context=/workspace/source
+              - --cache-repo=gcr.io/jenkinsxio/cache
+              - --cache=true
+              - --cache-dir=/workspace
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
+              - --dockerfile=Dockerfile.machine-learning
+              - --destination=gcr.io/jenkinsxio/jenkins-machine-learning:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache
               - --cache=true
